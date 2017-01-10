@@ -1,0 +1,48 @@
+<!-- CONTAINER DIV -->
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <img src="images/ymca-logo.png" alt="YMCA Logo">
+    <h1>{{title}}</h1>
+  </header>
+
+  <!-- TODAY'S DATE -->
+  <section class="date-section">
+    <h2 id="current-date"></h2>
+  </section>
+
+  <!-- CHECK IN SECTION -->
+  <section id="check-in">
+    <h2>Will You Be Playing Today?</h2>
+    <input type="text" id="name" placeholder="Name">
+    <br>
+    <div id="going-button" class="button"><img src="images/black-checkmark.svg" alt="Going Button"></div>
+    <div id="notGoing-button" class="button"><img src="images/red-x.png" alt="Not Going Button"></div>
+  </section>
+
+  <!-- CONTENT SECTION -->
+  <section id="attendance">
+    <!-- ATTENDING DIV -->
+    <div id="attending">
+      <h2>Attending</h2>
+        <ul class="attendee-list">
+          <li class="attendee is-attending">
+            Michael
+            <img class="check" src="images/green-check.png" alt="Going">
+          </li>
+        </ul>
+    </div><!-- ATTENDING DIV END -->
+
+    <div id="not-attending">
+      <h2>Not Attending</h2>
+        <ul class="attendee-list">
+          <li class="attendee no-show">
+            Terry
+            <img class="x" src="images/red-x.png" alt="Not Going">
+          </li>
+        </ul>
+    </div>
+  </section>
+
+</div><!-- CONTAINER DIV END -->

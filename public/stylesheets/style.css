@@ -1,0 +1,170 @@
+/* BODY */
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 62.5%;
+  font-family: arial, sans-serif;
+  background-color: #EDF0F5;
+}
+
+ul {
+  margin: 0;
+}
+
+/* CONTAINER */
+.container {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+/* HEADER */
+header {
+  padding: 25px;
+  padding-bottom: 10px;
+  font-size: 2em;
+  text-align: center;
+  background-color: #00A591;
+}
+
+header h1 {
+  margin: 0;
+  padding-top: 5px;
+}
+
+header img {
+  width: 150px;
+}
+
+/* DATE SECTION */
+.date-section {
+  padding: 15px;
+  background-color: black;
+}
+
+.date-section h2 {
+  color: white;
+  text-align: center;
+  font-size: 1.8em;
+  margin: 0;
+}
+
+/* CHECK IN SECTION */
+#check-in {
+  background-color: #00A591;
+  padding: 25px;
+  padding-top: 10px;
+  text-align: center;
+}
+
+#check-in h2 {
+  margin: 0;
+  margin-bottom: 15px;
+  font-size: 1.8em;
+}
+
+#check-in input {
+  font-size: 1.8em;
+  border-radius: 2px;
+  padding: 5px;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.button {
+  padding: 8px;
+  display: inline;
+  font-size: 1.6em;
+  cursor: pointer;
+}
+
+.button img {
+  width: 50px;
+}
+
+#going-button {
+  margin-right: 20px;
+}
+#notGoing-button {
+  margin-left: 20px;
+}
+
+/* ATTENDANCE SECTION*/
+#attendance {
+  float: left;
+  width: 100%;
+  display: block;
+  overflow: auto;
+}
+
+#attending, #not-attending {
+  width: 45%;
+  height: 100%;
+  background-color: #EDF0F5;
+  float: left;
+  padding: 2.5%;
+}
+
+#attending h2, #not-attending h2 {
+  font-size: 1.8em;
+  text-align: center;
+  margin: 0;
+  padding: 15px;
+  text-decoration: underline;
+}
+
+#not-attending {
+  background-color: lightgrey;
+}
+
+  /* ATTENDANCE SECTION*/
+  .attendee-list {
+    padding: 0;
+    margin: 0;
+  }
+
+  .attendee-list li {
+    list-style-type: none;
+  }
+
+  .attendee {
+    padding: 10px;
+    border-bottom: 2px solid black;
+    font-size: 1.8em;
+    text-align: center;
+  }
+
+  .check, .x {
+    width: 25px;
+    float: right;
+  }
+
+  .check {
+    padding-top: 3px;
+  }
+
+
+/* MEDIA QUERIES */
+
+/* HEADER MEDIA QUERIES */
+@media screen and (max-width: 462px) {
+  header h1 {
+    font-size: 1.8em;
+  }
+}
+
+/* CONTENT SECTION MEDIA QUEIRES */
+@media screen and (max-width: 625px) {
+  #attending, #not-attending {
+    float: none;
+    width: 100%;
+    padding: 0;
+  }
+
+  @media screen and (max-width: 400px) {
+    #attending, #not-attending {
+      height: auto;
+    }
+}
