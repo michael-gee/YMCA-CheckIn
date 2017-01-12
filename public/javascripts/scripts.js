@@ -11,66 +11,137 @@ firebase.initializeApp(config);
 // Firebase Config
 var database = firebase.database().ref();
 
+// MOMENT.JS DATE CONFIGURATION
+
 // Display Date with Moment.js that will be shown in the header
 var displayDate = moment().format('dddd, MMMM Do YYYY');
 document.getElementById("current-date").textContent = displayDate;
 
-// current Date -> 11/11/2016 format
-var currentDate = moment().format("L");
-//Replace the slashes (/) with dashes (-)
-currentDate = currentDate.replace("/", "-").replace("/", "-");
-currentDate = currentDate + "/";
+// DAY ARROW FUNCTIONS
+//ARROW VARIABLES
+var leftArrow = document.getElementById("left-arrow");
+var rightArrow = document.getElementById("right-arrow");
 
- console.log(currentDate);
+//ARROW EVENT LISTENERS
+leftArrow.addEventListener("click", function(){
+  updateDay("prev");
+});
+rightArrow.addEventListener("click", function(){
+  updateDay("next");
+});
 
- function displayUsers() {
+//ARROW Functions
 
-   var attendingRef = 22;
-   var notAttendingRef = 22;
+// Moment.js Number Manipulation
+var subtractDays = 0;
+var addDays = 0;
+// Day Differential Variable
+var dayDiff;
+
+// Function That
+function dateChangerFunc(operator) {
+  if(operator === "minus"){
+    displayDate = moment().subtract(dayDiff, 'days');
+    displayDate = displayDate.format('dddd, MMMM Do YYYY')
+    document.getElementById("current-date").textContent = displayDate;
+  }
+
+  if(operator === "plus"){
+    displayDate = moment().add(dayDiff, 'days');
+    displayDate = displayDate.format('dddd, MMMM Do YYYY')
+    document.getElementById("current-date").textContent = displayDate;
+  }
+}
+
+//Previous Day Functions
+function updateDay(dir){
+  if(dir === "prev"){
+    if(subtractDays === addDays && subtractDays === 0 && addDays === 0){
+      subtractDays++;
+      dayDiff = subtractDays;
+      dateChangerFunc("minus");
+    }else if(subtractDays === addDays && subtractDays > 0 && addDays > 0){
+      subtractDays++;
+      dayDiff = subtractDays - addDays;
+      dateChangerFunc("minus");
+    }else if(subtractDays > addDays){
+      subtractDays++;
+      dayDiff = subtractDays - addDays;
+      dateChangerFunc("minus");
+    }else if(addDays > subtractDays){
+      subtractDays++;
+      dayDiff = addDays - subtractDays;
+      dateChangerFunc("plus");
+    }
+  }else if(dir === "next"){
+    if(subtractDays === addDays && subtractDays === 0 && addDays === 0){
+      addDays++;
+      dayDiff = addDays;
+      dateChangerFunc("plus");
+    }else if(subtractDays === addDays && subtractDays > 0 && addDays > 0){
+      addDays++;
+      dayDiff = addDays - subtractDays;
+      dateChangerFunc("plus");
+    }else if(addDays > subtractDays){
+      addDays++;
+      dayDiff = addDays - subtractDays;
+      dateChangerFunc("plus");
+    }else if(subtractDays > addDays){
+      addDays++;
+      dayDiff = subtractDays - addDays;
+      dateChangerFunc("minus");
+    }
+  }
+}
+
+//function that displays users to the screen
+ function displayUsers(dispDate) {
+
+
 
  }
 
-// Button Functions
-// get elements from DOM
+// Attendance Button Variables
 var goingButton = document.getElementById('going-button');
 var notGoingButton = document.getElementById('notGoing-button');
-var name = document.getElementById('name');
+var name = document.getElementById('userName');
 
 // addindg events to elements
 goingButton.addEventListener('click', saveToAttending);
 notGoingButton.addEventListener('click', saveToNotAttending);
 
+// Attendance Button Functions
 function saveToAttending() {
-    if (name.value) {
+    if (userName.value) {
         database.child(displayDate).child('attending').push({
-            name: name.value
+            name: userName.value
         }).then(function () {
-            console.log(name.value, 'attending');
+            console.log(userName.value, 'attending');
             // Clear form text fields
             resetName();
-            name.focus();
+            userName.focus();
         });
     } else {
-        console.log('TODO info to user:  fill up the form')
+        alert("Please input your name before submitting attendance.");
     }
 }
 
 function saveToNotAttending() {
-    if (name.value) {
+    if (userName.value) {
         database.child(displayDate).child('not_attending').push({
-            name: name.value
+            name:userName.value
         }).then(function () {
-            console.log(name.value, 'NOT attending');
+            console.log(userName.value, 'NOT attending');
             // Clear form text fields
             resetName();
-            name.focus();
+            userName.focus();
         });
     } else {
-        console.log('TODO info to user:  fill up the form')
+        alert("Please input your name before submitting attendance.");
     }
 }
 
 // after saving in database clear input field
 function resetName(){
-    name.value = '';
+    userName.value = '';
 }

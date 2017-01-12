@@ -42,11 +42,31 @@ header img {
   background-color: black;
 }
 
+/*DATE ARROWS DIV */
+.date-arrows {
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+  #left-arrow, #right-arrow {
+    cursor: pointer;
+  }
+
+.date-section img {
+  float: left;
+}
+
 .date-section h2 {
   color: white;
   text-align: center;
   font-size: 1.8em;
   margin: 0;
+  margin-right: 35px;
+  margin-left: 35px;
+  float: left;
 }
 
 /* CHECK IN SECTION */
