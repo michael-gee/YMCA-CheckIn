@@ -11,11 +11,72 @@ firebase.initializeApp(config);
 // Firebase Config
 var database = firebase.database().ref();
 
+var pplAttending = [];
+var pplNotAttending = [];
+
+//function that displays users to the screen
+ function displayUsers(dispDate) {
+
+   var attendingList = document.getElementById("ppl-Attending");
+   var notAttendingList = document.getElementById("ppl-Not-Attending");
+
+   //Set Information/InnerHTML back to nothing so info can get appended
+   attendingList.innerHTML = '';
+   notAttendingList.innerHTML = '';
+   pplAttending = [];
+   pplNotAttending = [];
+
+   var attendingRef = database.child(dispDate).child('attending');
+
+   var notAttendingRef = database.child(dispDate).child('not_attending');
+
+   attendingRef.on('value', snap => {
+     if(snap.val() !== null){
+       // FIX IT IS APPENDING TOO MANY NAMES IN PPL ARRAYS 
+       for(var key in snap.val()){
+         pplAttending.push(snap.val()[key].name);
+       }
+
+       for(var a = 0, x = pplAttending.length; a < x; a++){
+         attendingList.innerHTML += "<ul class='attendee-list'>" +
+         "<li class='attendee is-attending'>" +
+          pplAttending[a] +
+          "<img class='check' src='images/green-check.png' alt='Going'></li>" +
+          "</ul>";
+       }
+     }else {
+       attendingList.innerHTML += "<h1 class='empty-list'>No Users Submitted</h1>";
+     }
+   });
+
+
+   notAttendingRef.on('value', snap => {
+     if(snap.val() !== null){
+       // FIX IT IS APPENDING TOO MANY NAMES IN PPL ARRAYS
+       for(var key in snap.val()){
+         pplNotAttending.push(snap.val()[key].name);
+       }
+
+       for(var b = 0, z = pplNotAttending.length; b < z; b++){
+         notAttendingList.innerHTML += "<ul class='attendee-list'>" +
+         "<li class='attendee no-show'>" +
+          pplNotAttending[b] +
+          "<img class='x' src='images/red-x.png' alt='Not Going'></li>" +
+          "</ul>";
+       }
+     }else {
+       notAttendingList.innerHTML += "<h1 class='empty-list'>No Users Submitted</h1>";
+     }
+   });
+
+ }
+
 // MOMENT.JS DATE CONFIGURATION
 
 // Display Date with Moment.js that will be shown in the header
 var displayDate = moment().format('dddd, MMMM Do YYYY');
 document.getElementById("current-date").textContent = displayDate;
+displayUsers(displayDate);
 
 // DAY ARROW FUNCTIONS
 //ARROW VARIABLES
@@ -44,12 +105,14 @@ function dateChangerFunc(operator) {
     displayDate = moment().subtract(dayDiff, 'days');
     displayDate = displayDate.format('dddd, MMMM Do YYYY')
     document.getElementById("current-date").textContent = displayDate;
+    displayUsers(displayDate);
   }
 
   if(operator === "plus"){
     displayDate = moment().add(dayDiff, 'days');
     displayDate = displayDate.format('dddd, MMMM Do YYYY')
     document.getElementById("current-date").textContent = displayDate;
+    displayUsers(displayDate);
   }
 }
 
@@ -94,17 +157,10 @@ function updateDay(dir){
   }
 }
 
-//function that displays users to the screen
- function displayUsers(dispDate) {
-
-
-
- }
-
 // Attendance Button Variables
 var goingButton = document.getElementById('going-button');
 var notGoingButton = document.getElementById('notGoing-button');
-var name = document.getElementById('userName');
+var userName = document.getElementById('userName');
 
 // addindg events to elements
 goingButton.addEventListener('click', saveToAttending);
